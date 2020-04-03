@@ -40,7 +40,7 @@
         @blur="$v.rePassword.$touch()"
       ></v-text-field>
       <p id="regLink">You already have an account? Login <router-link id="reg" to='/login'>here!</router-link></p>
-      <v-btn color="primary" class="mr-4" :disabled="$v.$invalid" @click="submit">Register</v-btn>
+      <v-btn color="primary" class="mr-4" :disabled="$v.$invalid" @click.prevent="submit">Register</v-btn>
     </form>
   </div>
 </template>
@@ -48,6 +48,7 @@
 <script>
 import { validationMixin } from "vuelidate";
 import { required, minLength, email } from "vuelidate/lib/validators";
+import firebase from 'firebase'
 
 export default {
   mixins: [validationMixin],
@@ -114,11 +115,12 @@ export default {
   methods: {
     submit() {
       this.$v.$touch();
-      console.log(this.firstName);
-      console.log(this.lastName);
-      console.log(this.email);
-      console.log(this.password);
-      console.log(this.rePassword);
+      if (this.password === this.rePassword) {
+        firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+          .then(user => {
+            console.log(user);
+          })
+      }
     },
   }
 };
