@@ -11,41 +11,28 @@
           <v-btn text @click="logout">Logout</v-btn>
         </template>
       </v-toolbar-items>
-      <v-menu class="hidden-md-and-up">
-          <v-list>
-            <v-list-tile v-for="item in menu" :key="item.icon">
-              <v-list-tile-content>
-                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-        </v-menu>
     </v-toolbar>
   </div>
 </template>
 
 <script>
+import authService from '../services/authService';
+
 export default {
   name: "AppNavigation",
+  props: {
+    isLogged: Boolean
+  },
   data () {
     return {
-      isLogged: true,
-      menu: [
-        {title: 'Create event'},
-        {title: 'My events'},
-        {title: 'Logout'}
-      ],
-      drawer: null
+      
     }
   },
   methods: {
     logout() {
-      this.isLogged = false;
-    },
-    login() {
-      this.isLogged = true;
+      authService.logoutUser();
     }
-  },
+  }
 };
 </script>
 

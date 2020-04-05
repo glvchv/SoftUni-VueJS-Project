@@ -1,19 +1,31 @@
 <template>
   <v-app>
     <div id="app">
-      <app-navigation></app-navigation>
-        <router-view></router-view>
-      </div>
+      <app-navigation :isLogged="isLogged"></app-navigation>
+      <router-view :isLogged="isLogged"></router-view>
+      <app-footer></app-footer>
+    </div>
   </v-app>
 </template>
 
 <script>
 import AppNavigation from "./core/Navigation";
+import AppFooter from "./core/Footer";
+import firebase from 'firebase';
 
 export default {
   name: "App",
   components: {
-    AppNavigation
+    AppNavigation,
+    AppFooter
+  },
+  data() {
+    return {
+      isLogged: false
+    };
+  },
+  created() {
+    firebase.auth().onAuthStateChanged(u => this.isLogged = !!u)
   }
 };
 </script>

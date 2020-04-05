@@ -26,7 +26,7 @@
 <script>
 import { validationMixin } from "vuelidate";
 import { required, minLength, email } from "vuelidate/lib/validators";
-import firebase from 'firebase';
+import authService from '../../services/authService';
 
 export default {
   mixins: [validationMixin],
@@ -60,10 +60,7 @@ export default {
   methods: {
     submit() {
       this.$v.$touch();
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-        .then(res => {
-          console.log(res.user.uid);
-        })
+      authService.loginUser(this.email, this.password, this.$router);
     }
   }
 };
