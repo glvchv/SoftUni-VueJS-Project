@@ -27,6 +27,14 @@
         required
         @blur="$v.select.$touch()"
       ></v-select>
+       <!-- PhotoURL -->
+       <v-text-field
+        v-model="photoUrl"
+        :error-messages="photoUrlErrors"
+        label="Banner URL"
+        required
+        @blur="$v.photoUrl.$touch()"
+      ></v-text-field>
       <v-row>
         <!-- CITY -->
         <v-col cols="12" sm="6" md="6">
@@ -133,6 +141,7 @@
 <script>
 import { validationMixin } from "vuelidate";
 import { required, minLength } from "vuelidate/lib/validators";
+import dataService from "../services/dataService"
 export default {
   mixins: [validationMixin],
 
@@ -141,15 +150,16 @@ export default {
     description: { required, minLength: minLength(30) },
     select: { required },
     time: { required },
-    city: { required, minLength: minLength(6) },
-    venue: { required, minLength: minLength(6) }
+    city: { required, minLength: minLength(5) },
+    venue: { required, minLength: minLength(6) },
+    photoUrl: {required}
   },
   data() {
     return {
       name: "",
       description: "",
       select: null,
-      items: ["Music", "Sports", "Theatre plays", "Educational / Informative"],
+      items: ["Music", "Sports", "Theatre", "Education"],
       city: "",
       venue: "",
       date: new Date().toISOString().substr(0, 10),
@@ -157,7 +167,8 @@ export default {
       timeBool: false,
       time: null,
       price: "",
-      tickets: ""
+      tickets: "",
+      photoUrl: ""
     };
   },
   computed: {
@@ -195,7 +206,7 @@ export default {
       const errors = [];
       if (!this.$v.city.$dirty) return errors;
       !this.$v.city.minLength &&
-        errors.push("City must be at least 6 characters long");
+        errors.push("City must be at least 5 characters long");
       !this.$v.city.required && errors.push("City is required.");
       return errors;
     },
@@ -205,19 +216,34 @@ export default {
       !this.$v.time.required &&
         errors.push("Please choose when the event is happening!");
       return errors;
+    },
+    photoUrlErrors() {
+      const errors = [];
+      if (!this.$v.photoUrl.$dirty) return errors;
+      !this.$v.photoUrl.required &&
+        errors.push("This area must be filled!");
+      return errors;
     }
   },
   methods: {
     consoleLogInfo() {
       this.$v.$touch();
       if (!this.$v.$error) {
-        console.log(this.name);
-        console.log(this.description);
-        console.log(this.date);
-        console.log(this.select.toLowerCase());
-        console.log(this.time);
-        console.log(this.price);
-        console.log(this.tickets);
+        let data = {
+          name: this.name,
+          tickets: this.tickets,
+          ticketPrice: this.price,
+          category: this.select,
+          time: this.time,
+          date: this.date,
+          city: this.city,
+          venue: this.venue,
+          description: this.description,
+          creatorEmail: sessionStorage.getItem('email'),
+          creatorName: sessionStorage.getItem('name'),
+          photoUrl: this.photoUrl
+        }
+        dataService.postEvent(data)
       }
     }
   }

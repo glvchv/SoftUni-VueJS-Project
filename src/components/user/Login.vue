@@ -60,7 +60,7 @@ export default {
   methods: {
     submit() {
       this.$v.$touch();
-      authService.loginUser(this.email, this.password, this.$router);
+      authService.loginUser(this.email, this.password);
     }
   }
 };
