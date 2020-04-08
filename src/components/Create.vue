@@ -241,7 +241,8 @@ export default {
           description: this.description,
           creatorEmail: sessionStorage.getItem('email'),
           creatorName: sessionStorage.getItem('name'),
-          photoUrl: this.photoUrl
+          photoUrl: this.photoUrl,
+          reservations: []
         }
         dataService.postEvent(data)
       }

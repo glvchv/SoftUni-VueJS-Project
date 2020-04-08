@@ -13,8 +13,10 @@
             <div>Date: {{event.date}} Starting: {{event.time}}</div>
           </v-card-text>
 
-          <v-card-actions>
-            <v-btn color="purple" text bottom>View in details</v-btn>
+          <v-card-actions class="justify-center">
+            
+            <v-btn color="purple" text bottom :to="{ name: 'details', params:{ id : event.id }}">View in details</v-btn>
+            
           </v-card-actions>
         </v-card>
       </li>

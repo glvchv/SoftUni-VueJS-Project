@@ -91,7 +91,10 @@ export default {
     selectedIndexHandler(idx) {
       this.selectedIndex = idx;
       this.selectedCategory = this.categories[idx]
-      this.eventsByCategory = this.events.filter(ev => ev.category === this.selectedCategory);
+      if (this.events) {
+        this.eventsByCategory = this.events.filter(ev => ev.category === this.selectedCategory);
+      }
+      
     }
   },
 };

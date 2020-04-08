@@ -1,6 +1,10 @@
 <template>
   <v-app>
     <div id="app">
+      <v-snackbar :timeout="4000" v-model="snackbar.showing" :color="snackbar.color" top>
+        <span>{{snackbar.text}}</span>
+        <v-btn text color="white" @click="snackbar.showing = false">Close</v-btn>
+      </v-snackbar>
       <app-navigation :isLogged="isLogged"></app-navigation>
       <router-view :isLogged="isLogged"></router-view>
       <app-footer></app-footer>
@@ -11,7 +15,8 @@
 <script>
 import AppNavigation from "./core/Navigation";
 import AppFooter from "./core/Footer";
-import firebase from 'firebase';
+import firebase from "firebase";
+import { mapState } from 'vuex';
 
 export default {
   name: "App",
@@ -21,11 +26,14 @@ export default {
   },
   data() {
     return {
-      isLogged: false
+      isLogged: false,
     };
   },
   created() {
-    firebase.auth().onAuthStateChanged(u => this.isLogged = !!u)
+    firebase.auth().onAuthStateChanged(u => (this.isLogged = !!u));
+  },
+  computed: {
+    ...mapState(['snackbar'])
   }
 };
 </script>
