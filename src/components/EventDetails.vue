@@ -38,8 +38,8 @@
       <div v-if="isCreator && hasStarted">
         <v-btn color="error" text @click="closeEvent">Delete event</v-btn>
       </div>
-      <h3 v-if="!isCreator && hasReserved" class="pb-0">You have already purchased a ticket for this event!</h3>
-      <h3 v-if="(hasStarted || data.ticket === 0) && !isCreator">Tickets are no longer available!</h3>
+      <h3 v-if="!isCreator && hasReserved" class="invalid">You have already reserved a ticket for this event!</h3>
+      <h3 v-if="(hasStarted || data.ticket === 0) && !isCreator" class="invalid">Tickets are no longer available!</h3>
     </v-card-actions>
   </v-card>
 </template>
@@ -98,5 +98,8 @@ export default {
 }
 .data {
   font-weight: bold;
+}
+.invalid {
+  color: #db0448;
 }
 </style>

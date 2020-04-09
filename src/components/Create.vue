@@ -133,7 +133,7 @@
           <input id="tickets-num" type="number" v-model="tickets" />
         </v-col>
       </v-row>
-      <v-btn class="mr-4" :disabled="$v.$invalid" @click.prevent="consoleLogInfo">submit</v-btn>
+      <v-btn class="mr-4" color="primary" :disabled="$v.$invalid" @click.prevent="consoleLogInfo">Create</v-btn>
     </form>
   </div>
 </template>

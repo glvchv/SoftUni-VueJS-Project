@@ -52,6 +52,7 @@ export default {
     const email = sessionStorage.getItem("email");
     this.eventsCreated = events.filter(ev => ev.creatorEmail === email);
     this.eventsReserved = events.filter(ev => ev.reservations.includes(email));
+    
   }
 };
 </script>
@@ -62,6 +63,6 @@ export default {
   margin-top: 15px;
 }
 .no-events {
-  color: red;
+  color: #db0448;
 }
 </style>
