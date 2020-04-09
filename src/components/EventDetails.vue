@@ -26,7 +26,7 @@
         {{data.ticketPrice}} BGN
       </div>
       <div>
-        <span class="data">Ticket available:</span>
+        <span class="data">Tickets available:</span>
         {{data.tickets}}
       </div>
     </v-card-text>
@@ -38,7 +38,7 @@
       <div v-if="isCreator && hasStarted">
         <v-btn color="error" text @click="closeEvent">Delete event</v-btn>
       </div>
-      <h3 v-if="!isCreator && hasReserved" class="pb-0">You have already reserved a ticket for this event!</h3>
+      <h3 v-if="!isCreator && hasReserved" class="pb-0">You have already purchased a ticket for this event!</h3>
       <h3 v-if="(hasStarted || data.ticket === 0) && !isCreator">Tickets are no longer available!</h3>
     </v-card-actions>
   </v-card>
@@ -59,7 +59,6 @@ export default {
     let id = this.$route.params.id;
     let fetched = await dataService.getSingleEventById(id);
     this.data = fetched;
-    console.log(this.data);
     if (this.data.creatorEmail === sessionStorage.getItem("email")) {
       this.isCreator = true;
     }
@@ -74,6 +73,7 @@ export default {
   },
   methods: {
     reserveTicket() {
+      if(confirm('Are you sure?')) {
       this.data.reservations.push(sessionStorage.getItem("email"));
       this.data.tickets -= 1;
       dataService.updateEvent(
@@ -81,6 +81,8 @@ export default {
         this.$route.params.id
       );
       this.hasReserved = true;
+      }
+      
     },
     closeEvent() {
       dataService.deleteEvent(this.$route.params.id)
