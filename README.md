@@ -1,4 +1,5 @@
 # eventure
+
 ## Desription
 ```
 SPA Web application for pre-ordering events' tickets (project for SoftUni VueJS-2020).
