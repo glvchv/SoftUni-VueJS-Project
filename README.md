@@ -1,24 +1,30 @@
+![GitHub Logo](/public/eventure.png)
 # eventure
+## Desription
+```
+SPA Web application for pre-ordering events' tickets (project for SoftUni VueJS-2020).
+Test account - email: test@test.com, password: test123
 
-## Project setup
 ```
-npm install
-```
+## Features
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+* Authentication
+* Data validation
+* CRUD operations
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Dependencies
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+* VueJS
+* Vuelidate
+* Vue-Router
+* Vuetify
+* Vuex
+* Firebase
+
+
+## Instructions
+
+* npm install
+* npm run serve
+
